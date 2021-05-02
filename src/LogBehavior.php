@@ -9,7 +9,7 @@ use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 
-class Behavior extends Behavior
+class LogBehavior extends Behavior
 {
     /**
      * กำหนด event ให้ไปที่ method
@@ -24,7 +24,7 @@ class Behavior extends Behavior
 
     public function log($event)
     {
-        $model = new Log();
+        $model = new Yii2Log();
         $beforeChange = $event->sender->oldAttributes;  // attribute ทีั้งหมดก่อนการเปลี่ยนแปลง
         $afterChange = $event->sender->attributes;      // attribute ทีั้งหมดหลังการเปลี่ยนแปลง
         if (property_exists($event->sender::className(), 'ignoreLogAttributes')  && is_array($event->sender->ignoreLogAttributes)) {

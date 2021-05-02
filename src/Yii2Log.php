@@ -21,7 +21,7 @@ use Yii;
  * @property string|null $remote_host
  * @property string|null $request_method
  */
-class Log extends \yii\db\ActiveRecord
+class Yii2Log extends \yii\db\ActiveRecord
 {
     /**
      * {@inheritdoc}
