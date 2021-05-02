@@ -1,8 +1,8 @@
 {
-    "name": "patipark/yii2log",
+    "name": "patipark/yii2-log",
     "description": "ใช้ในการเก็บ Log ของ Active Record Model  โดยเก็บทุกฟิวด์ของตาราง ก่อน/หลัง การแก้ไข ไว้ในตารางในรูปแบบ JSON",
     "license": "MIT",
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "authors": [
         {
           "name": "Patipark Sopha",
