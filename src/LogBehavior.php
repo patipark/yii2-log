@@ -17,8 +17,8 @@ class LogBehavior extends Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_INSERT => 'log',
-            ActiveRecord::EVENT_AFTER_UPDATE => 'log',
+            ActiveRecord::EVENT_AFTER_INSERT    => 'log',
+            ActiveRecord::EVENT_BEFORE_UPDATE   => 'log',
         ];
     }
 
