@@ -32,7 +32,7 @@ yii migrate/up --migrationPath=@vendor/patipark/yii2-log/migrations
 
 Configure the behavior
 ```php
-class Category extends \yii\db\ActiveRecord
+class YourModel extends \yii\db\ActiveRecord
 {
     public $ignoreLogAttributes = ['created_by', 'created_at', 'updated_by', 'updated_at'];
     
