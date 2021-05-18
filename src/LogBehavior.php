@@ -22,9 +22,9 @@ class LogBehavior extends Behavior
         ];
     }
 
-    public function log($event)
+     public function log($event)
     {
-        $model = new Yii2Log();
+
         $beforeChange = $event->sender->oldAttributes;  // attribute ทีั้งหมดก่อนการเปลี่ยนแปลง
         $afterChange = $event->sender->attributes;      // attribute ทีั้งหมดหลังการเปลี่ยนแปลง
         if (property_exists($event->sender::className(), 'ignoreLogAttributes')  && is_array($event->sender->ignoreLogAttributes)) {
@@ -34,18 +34,30 @@ class LogBehavior extends Behavior
                 unset($afterChange[$attribute]);
             }
         }
-        $model->before_change = Json::encode($beforeChange);
-        $model->after_change = Json::encode($afterChange);
-        $model->event_time = new Expression('NOW()');
-        $model->event_name = $event->name;
-        $model->model_class = $event->sender::className();
-        $model->table_name = $event->sender->tableName();
-        $model->primary_key = Json::encode($event->sender->getPrimaryKey(true));
-        $model->user_id = Yii::$app->user->identity->id ?? null;
-        $model->referrer = Yii::$app->request->referrer;
-        $model->remote_ip = Yii::$app->request->remoteIP;
-        $model->remote_host = Yii::$app->request->remoteHost;
-        $model->request_method = Yii::$app->request->method;
-        $model->save();
+        $isChange = false;
+        foreach($beforeChange as $key => $val)
+        {
+            if($beforeChange[$key] != $afterChange[$key])
+            {
+                $isChange = true;
+                break;
+            }
+        }
+        if ($isChange) {
+            $model = new Yii2Log();
+            $model->before_change = Json::encode($beforeChange);
+            $model->after_change = Json::encode($afterChange);
+            $model->event_time = new Expression('NOW()');
+            $model->event_name = $event->name;
+            $model->model_class = $event->sender::className();
+            $model->table_name = $event->sender->tableName();
+            $model->primary_key = Json::encode($event->sender->getPrimaryKey(true));
+            $model->user_id = Yii::$app->user->identity->id ?? null;
+            $model->referrer = Yii::$app->request->referrer;
+            $model->remote_ip = Yii::$app->request->remoteIP;
+            $model->remote_host = Yii::$app->request->remoteHost;
+            $model->request_method = Yii::$app->request->method;
+            $model->save();
+        }
     }
 }
