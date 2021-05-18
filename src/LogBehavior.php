@@ -34,20 +34,13 @@ class LogBehavior extends Behavior
                 unset($afterChange[$attribute]);
             }
         }
-        $isChange = false;
-        foreach($beforeChange as $key => $val)
+      
+        if(!empty(array_diff($beforeChange,$afterChange)))
         {
-            if($beforeChange[$key] != $afterChange[$key])
-            {
-                $isChange = true;
-                break;
-            }
-        }
-        if ($isChange) {
             $model = new Yii2Log();
             $model->before_change = Json::encode($beforeChange);
             $model->after_change = Json::encode($afterChange);
-            $model->event_time = new Expression('NOW()');
+            $model->event_time = date("Y-m-d H:i:s");
             $model->event_name = $event->name;
             $model->model_class = $event->sender::className();
             $model->table_name = $event->sender->tableName();
