@@ -22,7 +22,7 @@ class LogBehavior extends Behavior
         ];
     }
 
-     public function log($event)
+    public function log($event)
     {
 
         $beforeChange = $event->sender->oldAttributes;  // attribute ทีั้งหมดก่อนการเปลี่ยนแปลง
@@ -34,9 +34,8 @@ class LogBehavior extends Behavior
                 unset($afterChange[$attribute]);
             }
         }
-      
-        if(!empty(array_diff($beforeChange,$afterChange)))
-        {
+
+        if (!empty(array_diff($beforeChange, $afterChange))) {
             $model = new Yii2Log();
             $model->before_change = Json::encode($beforeChange);
             $model->after_change = Json::encode($afterChange);
