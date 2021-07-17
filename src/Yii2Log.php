@@ -67,3 +67,4 @@ class Yii2Log extends \yii\db\ActiveRecord
         ];
     }
 }
+
